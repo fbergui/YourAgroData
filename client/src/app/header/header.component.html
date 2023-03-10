@@ -1,0 +1,32 @@
+<header class="bg-success">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-center text-center">
+      <div>
+        <div class="site-logo">
+          <h3 href="#" class="font-weight-bold">YourAgroData</h3>
+        </div>
+      </div>
+      <div>
+        <nav class="navbar navbar-expand-lg p-2">
+          <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+            <ul class="nav navbar-nav d-flex flex-row">
+              <span class="p-3"></span>
+              <li class="p-1"><a href="#" class="nav-link active">Home</a></li>
+              <li class="p-1"><a href="#" class="nav-link">About</a></li>
+              <li class="p-1"><a href="#" class="nav-link">Services</a></li>
+              <li class="p-1"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav d-flex flex-row">
+              <span class="p-3"></span>
+              <li class="p-3"><a href="#" class="nav-link active"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li class="p-3"><a href="#" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
