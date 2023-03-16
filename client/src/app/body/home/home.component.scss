@@ -1,0 +1,27 @@
+* {
+  border-radius: 0 !important;
+}
+
+img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+main{
+  height: 500px;
+}
+
+.col{
+  height: 100%;
+}
+
+.testoHome{
+  text-align: center;
+  align-items: center;
+}
+.testoHome>p{
+  scale:0.75;
+}
+.testoHome>h1{
+  scale:0.90;
+}
