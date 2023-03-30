@@ -13,4 +13,11 @@ export class HeaderComponent {
     this.navbarOpen = !this.navbarOpen;
   }
 
+  over(){
+
+  }
+
+  out(){
+  }
+
 }

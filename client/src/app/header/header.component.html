@@ -1,11 +1,11 @@
 <header class="bg-success">
   <div class="container">
     <div class="d-flex align-items-center justify-content-center text-center">
-        <nav class="navbar navbar-expand-lg p-2">
-          <div class="site-logo">
+        <nav class="navbar navbar-expand-lg m-2">
+          <div class="site-logo pr-2">
             <h3 href="#" class="font-weight-bold">YourAgroData</h3>
           </div>
-          <button class="navbar-toggler" type="button"(click)="toggleNavbar()">
+          <button class="navbar-toggler m-2" type="button"(click)="toggleNavbar()">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
@@ -17,8 +17,8 @@
             </ul>
             <ul class="nav navbar-nav d-flex flex-row" [ngClass]="{ 'py-2 px-3': navbarOpen }">
               <span class="p-3"></span>
-              <li class="p-3"><a href="#" class="nav-link active"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-              <li class="p-3"><a href="#" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <li class="p-3" (mouseover)='over()' (mouseout)='out()'><a href="#" class="nav-link"><i class="bi bi-person-fill-add"></i> Sign Up</a></li>
+              <li class="p-3"><a href="#" class="nav-link"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
             </ul>
           </div>
         </nav>

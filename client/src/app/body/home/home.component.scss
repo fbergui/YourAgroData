@@ -9,11 +9,16 @@ img{
 
 main{
   height: 500px;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.col{
-  height: 100%;
+.row{
+  border-bottom: 1px solid black;
+  width: 100%;
 }
+.col-9{}
 
 .testoHome{
   text-align: center;
