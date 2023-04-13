@@ -11,6 +11,8 @@ import { AboutComponent } from './body/about/about.component';
 import { ServicesPageComponent } from './body/services-page/services-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormUserComponent } from './form-user/form-user.component';
+import { LoginComponent } from './form-user/login/login.component';
+import { SigninComponent } from './form-user/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { FormUserComponent } from './form-user/form-user.component';
     ServicesPageComponent,
     FooterComponent,
     FormUserComponent,
+    LoginComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
