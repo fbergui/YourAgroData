@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FormUserComponent } from './form-user/form-user.component';
 import { LoginComponent } from './form-user/login/login.component';
 import { SigninComponent } from './form-user/signin/signin.component';
+import {HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SigninComponent } from './form-user/signin/signin.component';
     SigninComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     NgbModule,
     AppRoutingModule

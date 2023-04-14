@@ -28,6 +28,14 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+#SERVER FILES
+
+server/node_modules
+server/.vscode
+server/keys
+server/.env
+server/package-lock.json
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
