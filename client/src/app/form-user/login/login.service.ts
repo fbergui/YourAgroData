@@ -7,11 +7,25 @@ import { DataStorageService } from '../../shared/data-storage.service';
 export class LoginService {
 
   user:any;
+  ris:any;
 
   constructor(private dataStorageService: DataStorageService) { }
 
-  getUser(){
+  getUsers(){
+    this.dataStorageService.getRequest('users').subscribe({
+      next: (data) => {
+          this.user=data;
+          console.log(this.user);
 
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+   login(username:string, password:string){
+    return this.dataStorageService.postRequest('login',{username,password})
   }
 
 }

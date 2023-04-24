@@ -14,6 +14,9 @@ import { FormUserComponent } from './form-user/form-user.component';
 import { LoginComponent } from './form-user/login/login.component';
 import { SigninComponent } from './form-user/signin/signin.component';
 import {HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { AlertModule } from '@coreui/angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import {HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     BrowserModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    AlertModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

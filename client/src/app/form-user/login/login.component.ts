@@ -1,6 +1,6 @@
 import { Component,Input } from '@angular/core';
 import { LoginService } from './login.service';
-import { DataStorageService } from '../../shared/data-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,22 +9,37 @@ import { DataStorageService } from '../../shared/data-storage.service';
 })
 export class LoginComponent {
 
-  user:any;
+  visible = false;
+  dismissible = true;
 
-  constructor(public dataStorageService: DataStorageService) {
-  }
+  str:any;
 
-  getUser(){
-    this.dataStorageService.getRequest('users').subscribe({
-      next: (data) => {
-          this.user=data;
-          console.log(this.user);
+  username:string='';
+  password:string='';
 
+  constructor(public loginService: LoginService,private router:Router) {}
+
+  login(){
+    this.loginService.login(this.username,this.password).subscribe({
+      next:  (data) => {
+
+        this.str= JSON.stringify(data);
+        this.str= JSON.parse(this.str);
+
+        if(this.str.ris == "ok")
+        {
+          this.visible=false;
+          this.router.navigate(['/home']);//redirect però sulla pagina di gestione
+        }
+        else{
+          this.visible=true;
+        }
       },
       error: (error) => {
         console.log(error);
       },
     });
+
   }
 
 

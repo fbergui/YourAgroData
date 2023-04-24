@@ -4,12 +4,18 @@
   <div class="input-group mb-3">
     <!---->
     <div class="input-group-prepend"><span class="input-group-text bi bi-person-fill"></span></div>
-    <input type="text" placeholder="Username or email" name="username" class="form-control">
+    <input type="text" placeholder="Username or email" name="username"
+    class="form-control" [(ngModel)]="username">
   </div>
   <div class="input-group mb-3">
     <div class="input-group-prepend"><i class="input-group-text bi bi-key-fill"></i></div>
-    <input type="password" placeholder="Password" name="password" class="form-control">
+    <input type="password" placeholder="Password" name="password"
+    class="form-control" [(ngModel)]="password">
   </div>
+  <c-alert [(visible)]="visible" [dismissible]="dismissible" color="danger" fades *ngIf="visible" class="d-flex align-items-center">
+  <i class="bi bi-exclamation-triangle-fill"></i>
+  <div>&nbsp; The username/email or password is incorrect.</div>
+  </c-alert>
 </form>
 
-<button class="btn btn-success" (click)="getUser()">Login</button>
+<button class="btn btn-success" (click)="login()" style="width: 100%;">Login</button>
