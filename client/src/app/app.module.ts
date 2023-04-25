@@ -14,9 +14,15 @@ import { FormUserComponent } from './form-user/form-user.component';
 import { LoginComponent } from './form-user/login/login.component';
 import { SigninComponent } from './form-user/signin/signin.component';
 import {HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { AlertModule } from '@coreui/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgxMatIntlTelInputComponent} from "ngx-mat-intl-tel-input";
+import { MatFormFieldControl } from '@angular/material/form-field';
+import { CanUpdateErrorState, ErrorStateMatcher, _AbstractConstructor, _Constructor } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
+import { MatMenu } from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
@@ -36,9 +42,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     NgbModule,
     AppRoutingModule,
-    FormsModule,
+    FormsModule,ReactiveFormsModule,
     AlertModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxMatIntlTelInputComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

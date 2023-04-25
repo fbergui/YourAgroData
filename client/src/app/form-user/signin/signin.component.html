@@ -10,6 +10,14 @@
     <input type="text" placeholder="Email" name="email" class="form-control">
   </div>
   <div class="input-group mb-3">
+    <div class="input-group-prepend"><i class="input-group-text bi bi-telephone-fill"></i></div>
+    <ngx-mat-intl-tel-input [preferredCountries]="['it']"[enablePlaceholder]="true"
+    name="phone" describedBy="phoneInput" class="form-control btnNaz ckd-focused cdk-mouse-focused ngx-floating"
+    [(ngModel)]="phone">
+    </ngx-mat-intl-tel-input>
+  </div>
+
+  <div class="input-group mb-3">
     <div class="input-group-prepend"><i class="input-group-text bi bi-key"></i></div>
     <input type="password" placeholder="New Password" name="newpassword" class="form-control">
   </div>
@@ -17,5 +25,5 @@
     <div class="input-group-prepend"><i class="input-group-text bi bi-key-fill"></i></div>
     <input type="password" placeholder="Rewrite Password" name="rewpassword" class="form-control">
   </div>
-  <button class="btn btn-success" style="width: 100%;">Confirm</button>
+  <button class="btn btn-success" style="width: 100%;" (click)="registration()">Register now!</button>
 </form>

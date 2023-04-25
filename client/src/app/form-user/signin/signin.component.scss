@@ -9,3 +9,12 @@ form{
 .bi{
   font-size: 18pt;
 }
+.country-selector{
+  opacity:10 !important;
+}
+.mat-menu-content:not(:empty){
+  max-height:100px;
+}
+.mat-mdc-button:not(:disabled) {
+  border-right: 1px solid lightgray;
+}
