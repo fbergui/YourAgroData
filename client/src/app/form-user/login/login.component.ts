@@ -1,4 +1,6 @@
-import { Component,Input } from '@angular/core';
+import { Component,ViewEncapsulation } from '@angular/core';
+import {FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { ValidationService } from '../../shared/validation.service';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 
@@ -12,15 +14,36 @@ export class LoginComponent {
   visible = false;
   dismissible = true;
 
+
   str:any;
+  corrected:boolean=false;
+  loginForm: FormGroup = this.fb.group({});
+  submitted = false;
 
-  username:string='';
-  password:string='';
+  email:string=  '';
+  password:string=  '';
 
-  constructor(public loginService: LoginService,private router:Router) {}
+  constructor(public loginService: LoginService,private router:Router,
+  private fb: FormBuilder,private validationService: ValidationService) {}
 
-  login(){
-    this.loginService.login(this.username,this.password).subscribe({
+  ngOnInit(){
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
+
+  get loginFormControl() {
+    return this.loginForm.controls;
+  }
+
+  onSubmit() {
+
+    this.email=  this.loginForm.controls['email'].value;
+    this.password=  this.loginForm.controls['password'].value;
+    this.submitted = true;
+
+    this.loginService.login(this.email,this.password).subscribe({
       next:  (data) => {
 
         this.str= JSON.stringify(data);
@@ -39,8 +62,6 @@ export class LoginComponent {
         console.log(error);
       },
     });
-
   }
-
 
 }

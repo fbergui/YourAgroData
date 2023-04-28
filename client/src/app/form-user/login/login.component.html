@@ -1,21 +1,32 @@
 <h1 class="text-center">YourAgroData</h1>
 <h2 class="text-center">Login Portal</h2>
-<form class="mt-3 text-end">
-  <div class="input-group mb-3">
-    <!---->
-    <div class="input-group-prepend"><span class="input-group-text bi bi-person-fill"></span></div>
-    <input type="text" placeholder="Username or email" name="username"
-    class="form-control" [(ngModel)]="username">
+<form class="mt-3" (ngSubmit)="onSubmit()" [formGroup]="loginForm"
+  [ngClass]="corrected ? 'was-validated':'needs-validation'">
+
+  <div class="input-group mb-3" [ngClass]="((loginFormControl['email'].touched || submitted) &&
+  loginFormControl['email'].errors?.['required'] || loginFormControl['email'].errors?.['email'] ) ? 'was-validated':'needs-validation'">
+    <div class="input-group-prepend"><i class="input-group-text bi bi-person-fill"></i></div>
+    <input type="email" placeholder="Email" name="email" class="form-control" formControlName="email" required>
+    <div class="invalid-feedback">Please enter a valid email.</div>
   </div>
-  <div class="input-group mb-3">
+
+  <div class="input-group mb-3" [ngClass]="((loginFormControl['password'].touched || submitted) &&
+  loginFormControl['password'].errors?.['required']) ? 'was-validated':'needs-validation'">
     <div class="input-group-prepend"><i class="input-group-text bi bi-key-fill"></i></div>
-    <input type="password" placeholder="Password" name="password"
-    class="form-control" [(ngModel)]="password">
+    <input type="password" placeholder="Password" name="password" formControlName="password" class="form-control"
+      required>
+    <div class="invalid-feedback">
+      Please enter your password.
+    </div>
   </div>
-  <c-alert [(visible)]="visible" [dismissible]="dismissible" color="danger" fades *ngIf="visible" class="d-flex align-items-center">
-  <i class="bi bi-exclamation-triangle-fill"></i>
-  <div>&nbsp; The username/email or password is incorrect.</div>
+
+
+  <c-alert [(visible)]="visible" [dismissible]="dismissible" color="danger" fades *ngIf="visible"
+    class="d-flex align-items-center">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <div>&nbsp; The Email not registered or password is incorrect.</div>
   </c-alert>
+
+  <button class="btn btn-success" style="width: 100%;">Login</button>
 </form>
 
-<button class="btn btn-success" (click)="login()" style="width: 100%;">Login</button>

@@ -24,8 +24,8 @@ export class LoginService {
     });
   }
 
-   login(username:string, password:string){
-    return this.dataStorageService.postRequest('login',{username,password})
+   login(email:string, password:string){
+    return this.dataStorageService.postRequest('login',{email,password})
   }
 
 }
