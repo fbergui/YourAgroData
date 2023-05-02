@@ -1,3 +1,5 @@
+"use strict";
+
 import http from "http";
 import https from "https";
 import url from "url";
@@ -13,16 +15,16 @@ import nodemailer from "nodemailer";
 
 //#region CONFIG
 const HTTP_PORT = process.env.PORT || 1337;
+let regexMail = new RegExp(`^$[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`,"g")
 dotenv.config({ path: ".env" });
 const app = express();
 const connectionString: any = process.env.connectionString;
+const MAP_KEY: any = process.env.MAP_KEY;
+const auth = JSON.parse(process.env.gmail as string)
 const DBNAME = "YAD";
 const DURATA_TOKEN = 2000;
-const whiteList = [
-  "http://localhost:1337",
-  "https://localhost:1338",
-  "http://localhost:4200",
-];
+const whiteList = ["http://localhost:1337","https://localhost:1338","http://localhost:4200",];
+const message = fs.readFileSync("message.html", "utf8");
 const corsOptions = {
   origin: function (origin:any, callback:any) {
     if (!origin)
@@ -87,10 +89,6 @@ app.use("/", (req: any, res: any, next: any) => {
   next();
 });
 
-// 2 gestione delle risorse statiche
-//cerca le risorse nella cartella segnata nel path e li restituisce
-app.use("/", express.static("./static"));
-
 // 3 lettura dei parametri POST
 app.use("/", express.json({ limit: "50mb" }));
 app.use("/", express.urlencoded({ limit: "50mb", extended: true }));
@@ -127,115 +125,16 @@ app.use("/api/", (req: any, res: any, next: any) => {
 //#endregion
 
 /***********USER LISTENER****************/
-/*
-app.get("/api/getCollections", (req: any, res: any, next: any) => {
-  let db = req["connessione"].db(DBNAME);
-  // Leggo tutte le collezioni del DB
-  db.listCollections().toArray((err: any, data: any) => {
-    if (err) {
-      res.status(500);
-      res.send("Errore lettura connesioni");
-    } else {
-      res.send(data);
-    }
-    req["connessione"].close();
-  });
-});
-
-app.get("/api/:collection", (req: any, res: any, next: any) => {
-  let collectionSelected = req.params.collection;
-  let param = req.query;
-
-  let collection = req["connessione"].db(DBNAME).collection(collectionSelected);
-  collection.find(param).toArray((err: any, data: any) => {
-    if (err) {
-      res.status(500);
-      res.send("Errore esecuzione query");
-    } else {
-      let response = [];
-      for (const item of data) {
-        let key = Object.keys(item)[1];
-        response.push({ _id: item["_id"], val: item[key] });
-      }
-      res.send(data);
-    }
-    req["connessione"].close();
-  });
-});
-
-app.get("/api/:collection/:id", (req: any, res: any, next: any) => {
-  let collectionSelected = req.params.collection;
-  let id = new ObjectId(req.params.id);
-
-  let collection = req["connessione"].db(DBNAME).collection(collectionSelected);
-  collection.findOne({ _id: id }, (err: any, data: any) => {
-    if (err) {
-      res.status(500);
-      res.send("Errore esecuzione query");
-    } else {
-      res.send(data);
-    }
-    req["connessione"].close();
-  });
-});*/
-
-/*
-app.patch("/api/:collection/:id", (req: any, res: any, next: any) => {
-  let collectionSelected = req.params.collection;
-  let id = new ObjectId(req.params.id);
-
-  let collection = req["connessione"].db(DBNAME).collection(collectionSelected);
-  collection.updateOne(
-    { _id: id },
-    { $set: req.body.stream },
-    (err: any, data: any) => {
-      if (err) {
-        res.status(500);
-        res.send("Errore esecuzione query");
-      } else {
-        res.send(data);
-      }
-      req["connessione"].close();
-    }
-  );
-});
-
-app.put("/api/:collection/:id", (req: any, res: any, next: any) => {
-  let collectionSelected = req.params.collection;
-  let id = new ObjectId(req.params.id);
-
-  let collection = req["connessione"].db(DBNAME).collection(collectionSelected);
-  collection.replaceOne({ _id: id }, req.body.stream, (err: any, data: any) => {
-    if (err) {
-      res.status(500);
-      res.send("Errore esecuzione query");
-    } else {
-      res.send(data);
-    }
-    req["connessione"].close();
-  });
-});*/
-
 app.post("/api/login", (req: any, res: any, next: any) => {
   let params = req.body;
-  let user = req.body.stream.username;
+  let email = req.body.stream.email;
   let password = req.body.stream.password;
-  let find ={}
-
-  let regexMail = new RegExp(`^$[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`,"g")
-
-  if(user.match(regexMail))
-  find ={"email": user}
-  else
-  find ={"username": user}
-
-  
 
   let connection = new MongoClient(connectionString as string);
   connection.connect().then((client: MongoClient) => {
 
     let collection = req["connessione"].db(DBNAME).collection('users');
-    collection.findOne(find).then((dbUser: any) => {
+    collection.findOne({"email":email}).then((dbUser: any) => {
       if (!dbUser) {
         res.status(401); // user o password non validi
         res.send({ris:"Utente non registrato"});
@@ -279,6 +178,68 @@ app.post("/api/login", (req: any, res: any, next: any) => {
 
 
 });
+
+app.post("/api/signin", function (req: any, res: any, next: any){
+  let params = req.body;
+  let password = req.body.stream.password;
+
+    password = bcrypt.hashSync(password, 10);
+
+    let number= req.body.stream.number;
+
+    if(number == null || number == undefined)
+    number = " ";
+
+    let user ={
+      firstName: req.body.stream.firstName,
+      lastName: req.body.stream.lastName,
+      email: req.body.stream.email,
+      password: password,
+      number: number,      
+      confirmed: false,
+    }
+
+    let transporter = nodemailer.createTransport({
+      "service": "gmail",
+      "auth": auth
+    });
+  
+    let msg =  message.replace('__lastName', req.body.stream.lastName)
+    .replace("__firstName", req.body.stream.firstName)
+    
+    let mailOptions = {
+      "from": auth.user,
+      "to": req.body.stream.email,
+      "subject": "Confirmation account YourAgroData",
+      // "text": msg,
+      "html": msg,
+    }
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        res.status(500).send("Errore invio mail\n" + err.message);
+      }
+      else {
+        res.send({"ris": "ok mail"});
+      }
+    })
+    console.log(user);
+  /*let connection = new MongoClient(connectionString as string);
+  connection.connect().then((client: MongoClient) => {*/
+  let collection = req["connessione"].db(DBNAME).collection("users");
+    let request = collection.insertOne(user)
+    request.then((data:any)=>{
+      res.status(200);
+      res.send({"ris": "ok"});
+    }).catch((err: Error) => {
+      
+      res.send("Query error " + err.message);
+      console.log(err.stack);
+      res.status(500);
+    }).finally(() => {
+      req["connessione"].close();
+    });
+
+  })
 
 
 //#region DEFAULT

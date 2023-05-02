@@ -7,6 +7,7 @@ import { FormUserComponent } from './form-user/form-user.component';
 import { ServicesPageComponent } from './body/services-page/services-page.component';
 import { LoginComponent } from './form-user/login/login.component';
 import { SigninComponent } from './form-user/signin/signin.component';
+import { RedirectComponent } from './form-user/redirect/redirect.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -26,8 +27,9 @@ const appRoutes: Routes = [
     path: 'form',
     component: FormUserComponent,
     children: [
-      { path: 'login', component: LoginComponent },
+      { path: 'login', component: LoginComponent},
       { path: 'signin', component: SigninComponent },
+      { path: 'redirect/:email', component: RedirectComponent },
       ]
   },
 

@@ -10,21 +10,7 @@ export class LoginService {
   ris:any;
 
   constructor(private dataStorageService: DataStorageService) { }
-
-  getUsers(){
-    this.dataStorageService.getRequest('users').subscribe({
-      next: (data) => {
-          this.user=data;
-          console.log(this.user);
-
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
-
-   login(email:string, password:string){
+  login(email:string, password:string){
     return this.dataStorageService.postRequest('login',{email,password})
   }
 

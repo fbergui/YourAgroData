@@ -22,6 +22,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { CanUpdateErrorState, ErrorStateMatcher, _AbstractConstructor, _Constructor } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
 import { MatMenu } from '@angular/material/menu';
+import { RedirectComponent } from './form-user/redirect/redirect.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { MatMenu } from '@angular/material/menu';
     FormUserComponent,
     LoginComponent,
     SigninComponent,
+    RedirectComponent,
   ],
   imports: [
     HttpClientModule,
