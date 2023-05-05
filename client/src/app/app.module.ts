@@ -23,6 +23,7 @@ import { CanUpdateErrorState, ErrorStateMatcher, _AbstractConstructor, _Construc
 import { MatInput } from '@angular/material/input';
 import { MatMenu } from '@angular/material/menu';
 import { RedirectComponent } from './form-user/redirect/redirect.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { RedirectComponent } from './form-user/redirect/redirect.component';
     LoginComponent,
     SigninComponent,
     RedirectComponent,
+    DashboardComponent,
   ],
   imports: [
     HttpClientModule,

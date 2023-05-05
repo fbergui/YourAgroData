@@ -8,6 +8,7 @@ import { ServicesPageComponent } from './body/services-page/services-page.compon
 import { LoginComponent } from './form-user/login/login.component';
 import { SigninComponent } from './form-user/signin/signin.component';
 import { RedirectComponent } from './form-user/redirect/redirect.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
       { path: 'redirect/:email', component: RedirectComponent },
       ]
   },
+  { path: 'dashboard', component: DashboardComponent }
 
 
 
