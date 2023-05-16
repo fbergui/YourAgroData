@@ -9,6 +9,8 @@ import { LoginComponent } from './form-user/login/login.component';
 import { SigninComponent } from './form-user/signin/signin.component';
 import { RedirectComponent } from './form-user/redirect/redirect.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FieldsListComponent } from './dashboard/fields-list/fields-list.component';
+import { SensorsComponent } from './dashboard/sensors/sensors.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -33,7 +35,14 @@ const appRoutes: Routes = [
       { path: 'redirect/:email', component: RedirectComponent },
       ]
   },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent, //dashboard:email
+    children: [
+      {path: 'fields', component: FieldsListComponent},
+      {path: 'sensors', component: SensorsComponent},
+    ],
+
+
+  }
 
 
 

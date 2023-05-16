@@ -20,19 +20,19 @@
 	<li ngbNavItem>
 		<a ngbNavLink class="tabe">Quickboard</a>
 		<ng-template ngbNavContent>
-			<p>These navs will always Quickboard</p>
+      <p>These navs will always Quickboard</p>
 		</ng-template>
 	</li>
-	<li ngbNavItem>
-		<a ngbNavLink class="tabe">Fields</a>
+	<li ngbNavItem routerLink="/dashboard/fields">
+		<a ngbNavLink class="tabe" >Fields</a>
 		<ng-template ngbNavContent>
-			<p>These navs will always Fields</p>
+			<router-outlet></router-outlet>
 		</ng-template>
 	</li>
-  <li ngbNavItem>
+  <li ngbNavItem routerLink="/dashboard/sensors">
 		<a ngbNavLink class="tabe">Sensors</a>
 		<ng-template ngbNavContent>
-			<p>These navs will always Sensors</p>
+			<router-outlet></router-outlet>
 		</ng-template>
 	</li>
   <li ngbNavItem>
@@ -48,4 +48,4 @@
 		</ng-template>
 	</li>
 </ul>
-<div [ngbNavOutlet]="nav" class="mt-2"></div>
+<div [ngbNavOutlet]="nav" class="mt-2" style="padding-left: 30px;padding-right: 30px;"></div>

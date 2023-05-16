@@ -241,6 +241,28 @@ app.post("/api/signin", function (req: any, res: any, next: any){
 
   })
 
+app.get("/api/mapkey", function (req: any, res: any, next: any){
+    res.send({"key": MAP_KEY});
+});
+
+app.post("/api/fields", function (req: any, res: any, next: any){
+  let id = req.body.stream.idUser;
+
+  let collection = req["connessione"].db(DBNAME).collection("fields");
+  let request = collection.find({idUser:id}).toArray()
+  request.then((data:any)=>{
+    res.status(200);
+    res.send(data);
+  }).catch((err: Error) => {
+    res.send("Query error " + err.message);
+    console.log(err.stack);
+    res.status(500);
+  }).finally(() => {
+    req["connessione"].close();
+  });
+
+})
+
 
 //#region DEFAULT
 /***********DEFAULT ROUTE****************/

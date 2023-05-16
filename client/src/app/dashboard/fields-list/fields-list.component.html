@@ -1,0 +1,19 @@
+<button class="btn btn-success" >Create Field</button>
+<div class="col mt-3">
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false"
+    (mapReady)="onLoadMap($event)" [agmDrawingManager]="drawing">
+
+    <agm-drawing-manager #drawing="agmDrawingManager" [drawingMode]="drawingMode"
+      (overlayComplete)="onOverlayComplete($event)" [drawingControlOptions]="drawingControlOptions"
+      [polygonOptions]="polygonOptions">
+    </agm-drawing-manager>
+
+    <agm-polygon *ngFor="let iterator of polygons; index as i" (polyMouseDown)="onClickPolygon(i)"
+      [fillOpacity]="polygonOptions.fillOpacity" [fillColor]="polygonOptions.fillColor"
+      [strokeColor]="polygonOptions.strokeColor"
+      [strokeWeight]="polygonOptions.strokeWeight" [polyDraggable]="polygonOptions.draggable" [paths]="iterator">
+    </agm-polygon>
+
+  </agm-map>
+  <app-field-item *ngFor="let field of fields" [recipe]="field"></app-field-item>
+</div>
