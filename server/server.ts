@@ -12,6 +12,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { parseUrl } from "query-string";
 import nodemailer from "nodemailer";
+import { SerialPort } from "serialport";
+import { ReadlineParser } from '@serialport/parser-readline'
 
 //#region CONFIG
 const HTTP_PORT = process.env.PORT || 1337;
@@ -58,6 +60,19 @@ const HTTPS_PORT = 1338;
 const privateKey = fs.readFileSync("keys/privateKey.pem", "utf8");
 const certificate = fs.readFileSync("keys/certificate.crt", "utf8");
 const credentials = { key: privateKey, cert: certificate };
+
+
+let port = new SerialPort({path:'\\\\.\\COM4', baudRate: 9600, autoOpen:true});
+//serialport-terminal  -p COM4 -b 9600
+let parser = port.pipe(new ReadlineParser());
+
+// Read the port data
+port.on("open", () => {
+  console.log('serial port open');
+  parser.on('data', data =>{
+    
+  });
+});
 
 //CREAZIONE E AVVIO DEL SERVER HTTP
 

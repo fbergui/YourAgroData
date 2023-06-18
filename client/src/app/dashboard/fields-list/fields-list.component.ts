@@ -19,8 +19,7 @@ export class FieldsListComponent implements OnInit{
 
 
   fields:any[] = [];
-  mapRef!: AgmMap;
-  zoom: number = 15;
+  agmMap!: AgmMap;
   lat: number = 0;
   lng: number = 0;
 
@@ -43,6 +42,8 @@ export class FieldsListComponent implements OnInit{
     editable: true
   }
 
+
+
   polygons: LatLngLiteral[][] = []
 
   ngOnInit(): void {
@@ -57,8 +58,20 @@ export class FieldsListComponent implements OnInit{
       console.log(this.fields);
     })
   }
-  onLoadMap($event: AgmMap) {
-    this.mapRef = $event;
+
+  onMapReady(map: any) {
+    map.setOptions({
+      mapTypeId: 'satellite',
+      disableDefaultUI: true,
+      fullscreenControl: true,
+      streetViewControl: false,
+      zoom: 15,
+      zoomControl: true,
+    })
+  }
+
+  addField(){
+
   }
 
   onOverlayComplete($overlayEvent: any) {

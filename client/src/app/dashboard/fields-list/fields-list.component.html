@@ -1,7 +1,6 @@
-<button class="btn btn-success" >Create Field</button>
+<button class="btn btn-success" (click)="addField()">Create Field</button>
 <div class="col mt-3">
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false"
-    (mapReady)="onLoadMap($event)" [agmDrawingManager]="drawing">
+  <agm-map [latitude]="lat" [longitude]="lng"  (mapReady)="onMapReady($event)" [agmDrawingManager]="drawing">
 
     <agm-drawing-manager #drawing="agmDrawingManager" [drawingMode]="drawingMode"
       (overlayComplete)="onOverlayComplete($event)" [drawingControlOptions]="drawingControlOptions"

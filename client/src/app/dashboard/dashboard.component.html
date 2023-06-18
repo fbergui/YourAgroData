@@ -16,21 +16,15 @@
     </div>
   </div>
 </nav>
-<ul ngbNav #nav="ngbNav" class="nav-tabs">
-	<li ngbNavItem>
-		<a ngbNavLink class="tabe">Quickboard</a>
-		<ng-template ngbNavContent>
-      <p>These navs will always Quickboard</p>
-		</ng-template>
-	</li>
-	<li ngbNavItem routerLink="/dashboard/fields">
-		<a ngbNavLink class="tabe" >Fields</a>
+<ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="active">
+	<li ngbNavItem routerLink="/dashboard/fields" [ngbNavItem]="1">
+		<a ngbNavLink class="tabe">Fields</a>
 		<ng-template ngbNavContent>
 			<router-outlet></router-outlet>
 		</ng-template>
 	</li>
-  <li ngbNavItem routerLink="/dashboard/sensors">
-		<a ngbNavLink class="tabe">Sensors</a>
+  <li ngbNavItem routerLink="/dashboard/sensors" [ngbNavItem]="2">
+		<a ngbNavLink class="tabe" >Sensors</a>
 		<ng-template ngbNavContent>
 			<router-outlet></router-outlet>
 		</ng-template>
