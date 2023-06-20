@@ -9,7 +9,7 @@ export class FieldsService {
   constructor(private dataService:DataStorageService) { }
 
   getFields(idUser:string){
-    return this.dataService.postRequest('fields',{idUser})
+    return this.dataService.getRequest('fields/'+idUser);
   }
   getMapKey(){
     return this.dataService.getRequest('mapkey')

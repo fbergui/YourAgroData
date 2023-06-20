@@ -65,12 +65,12 @@ const credentials = { key: privateKey, cert: certificate };
 let port = new SerialPort({path:'\\\\.\\COM4', baudRate: 9600, autoOpen:true});
 //serialport-terminal  -p COM4 -b 9600
 let parser = port.pipe(new ReadlineParser());
-
+let datoSensore:any;
 // Read the port data
 port.on("open", () => {
   console.log('serial port open');
   parser.on('data', data =>{
-    
+    datoSensore = data;
   });
 });
 
@@ -260,10 +260,11 @@ app.get("/api/mapkey", function (req: any, res: any, next: any){
     res.send({"key": MAP_KEY});
 });
 
-app.post("/api/fields", function (req: any, res: any, next: any){
-  let id = req.body.stream.idUser;
+app.get("/api/:collection/:id", function (req: any, res: any, next: any){
+  let id = req.params.id;
+  let coll = req.params.collection
 
-  let collection = req["connessione"].db(DBNAME).collection("fields");
+  let collection = req["connessione"].db(DBNAME).collection(coll);
   let request = collection.find({idUser:id}).toArray()
   request.then((data:any)=>{
     res.status(200);
@@ -273,6 +274,36 @@ app.post("/api/fields", function (req: any, res: any, next: any){
     console.log(err.stack);
     res.status(500);
   }).finally(() => {
+    req["connessione"].close();
+  });
+
+})
+
+app.post("/api/addDataSensor", function (req: any, res: any, next: any){
+  let atmTemperature = datoSensore.split("|")[0];
+  let atmHumidity = datoSensore.split("|")[1];
+  let soilHumidity = datoSensore.split("|")[2];
+  let currentTime = new Date() ;
+
+  let record ={
+    idSensor: req.body.stream.idSensor,
+    atmTemperature: atmTemperature,
+    atmHumidity: atmHumidity,
+    soilHumidity: soilHumidity,
+    time: currentTime
+  }
+
+  let collection = req["connessione"].db(DBNAME).collection("sensorData");
+  let request = collection.insertOne(record)
+  request.then((data:any)=>{
+    res.status(200);
+    res.send({"ris": "ok"});
+  }).catch((err: Error) => {
+    res.send("Query error " + err.message);
+    console.log(err.stack);
+    res.status(500);
+  }
+  ).finally(() => {
     req["connessione"].close();
   });
 

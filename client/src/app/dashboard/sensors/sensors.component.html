@@ -1,5 +1,13 @@
-<div>
-  <button class="btn btn-success">Add Sensor</button>
-
+<button class="btn btn-success">Add Sensor</button>
+<div class="col mt-3" *ngFor="let sensor of sensors">
+  <div class="border my-4">
+    <h4 class="m-2">{{sensor.name}}</h4>
+    <p class="m-2">{{sensor.description}}</p>
+    <button class="btn m-2" [ngClass]="active ? 'btn-danger':'btn-success'"
+    (click)="register(sensor._id)">{{txtRegister}}</button>
+    <button class="btn btn-primary m-2">Edit</button>
+    <button class="btn btn-danger m-2">Delete</button>
+    <img class="mb-2"src='../../../assets/img/sensors/{{sensor._id}}.png'>
+  </div>
 </div>
 

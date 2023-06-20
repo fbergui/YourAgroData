@@ -34,6 +34,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "bootstrap-scss": "^5.2.3",
+    "chart.js": "^4.3.0",
     "jquery": "^3.6.4",
     "libphonenumber-js": "^1.10.28",
     "ngx-bootstrap": "^10.2.0",
