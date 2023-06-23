@@ -15,14 +15,17 @@ export class FieldItemComponent {
     this.type = this.recipe.type;
   }
 
-  onDelete(){
-
-  }
-  onEdit(){
-
-  }
   showMap(){
 
   }
+
+  onEdit(){
+
+  }
+
+  onDelete(){
+
+  }
+
 
 }

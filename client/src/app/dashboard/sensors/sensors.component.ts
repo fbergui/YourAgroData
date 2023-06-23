@@ -15,6 +15,31 @@ export class SensorsComponent {
   txtRegister:string="Start Register";
   interval:any;
 
+  chartData = [
+    {
+      data: [330, 600, 260, 700],
+      label: 'Account A'
+    },
+    {
+      data: [120, 455, 100, 340],
+      label: 'Account B'
+    },
+    {
+      data: [45, 67, 800, 500],
+      label: 'Account C'
+    }
+  ];
+
+  chartLabels = [
+    'January',
+    'February',
+    'March',
+    'April'
+  ];
+  chartOptions = {
+    responsive: true
+  };
+
 
   ngOnInit() {
     this.sensorService.getSensors("6438f50f969d3d3f112545c6").subscribe((data:any)=>{

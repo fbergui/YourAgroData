@@ -280,9 +280,10 @@ app.get("/api/:collection/:id", function (req: any, res: any, next: any){
 })
 
 app.post("/api/addDataSensor", function (req: any, res: any, next: any){
-  let atmTemperature = datoSensore.split("|")[0];
-  let atmHumidity = datoSensore.split("|")[1];
-  let soilHumidity = datoSensore.split("|")[2];
+  let atmTemperature = parseFloat(datoSensore.split("|")[0]);
+  let atmHumidity = parseFloat(datoSensore.split("|")[1]);
+  let soilHumidity = parseInt(datoSensore.split("|")[2]);
+  console.log(atmTemperature, atmHumidity, soilHumidity);
   let currentTime = new Date() ;
 
   let record ={
