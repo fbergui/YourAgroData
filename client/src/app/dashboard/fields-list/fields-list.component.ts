@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { FieldsService } from './fields.service';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class FieldsListComponent implements OnInit {
 
+  @Input() id!:string;
   constructor(private fieldsService: FieldsService) { }
   fields: any[] = [];
 
@@ -22,7 +23,7 @@ export class FieldsListComponent implements OnInit {
     lng: 0
   };
   ngOnInit(): void {
-    this.fieldsService.getFields("6438f50f969d3d3f112545c6").subscribe((data: any) => {
+    this.fieldsService.getFields(this.id).subscribe((data: any) => {
       this.fields = data;
       this.fields.forEach((field: any) => {
         this.polygons.push(field.polygon)

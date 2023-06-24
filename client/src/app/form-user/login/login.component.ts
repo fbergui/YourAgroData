@@ -41,6 +41,7 @@ export class LoginComponent {
 
     this.email=  this.loginForm.controls['email'].value;
     this.password=  this.loginForm.controls['password'].value;
+    console.log(this.email + this.password)
     this.submitted = true;
 
     this.loginService.login(this.email,this.password).subscribe({
@@ -48,11 +49,12 @@ export class LoginComponent {
 
         this.str= JSON.stringify(data);
         this.str= JSON.parse(this.str);
+        console.log(this.str)
 
         if(this.str.ris == "ok")
         {
           this.visible=false;
-          this.router.navigate(['/home']);//redirect però sulla pagina di gestione
+          this.router.navigate(['/dashboard/', this.str.id, {name:this.str.name}]);
         }
         else{
           this.visible=true;

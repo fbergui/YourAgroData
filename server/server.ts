@@ -152,7 +152,7 @@ app.post("/api/login", (req: any, res: any, next: any) => {
     collection.findOne({"email":email}).then((dbUser: any) => {
       if (!dbUser) {
         res.status(401); // user o password non validi
-        res.send({ris:"Utente non registrato"});
+        res.send({ris:"nok"});
       } 
       else {
           //confronto la password
@@ -173,7 +173,7 @@ app.post("/api/login", (req: any, res: any, next: any) => {
                     res.setHeader("authorization", token);
                     // Per permettere le richieste extra domain
                     res.setHeader("access-control-exspose-headers","authorization");
-                    res.send({ ris: "ok" });
+                    res.send({ ris: "ok" ,id:dbUser._id, name : dbUser.firstName + " "+ dbUser.lastName});
                   }
               }
             });

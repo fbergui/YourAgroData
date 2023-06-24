@@ -35,10 +35,11 @@ const appRoutes: Routes = [
       { path: 'redirect/:email', component: RedirectComponent },
       ]
   },
-  { path: 'dashboard', component: DashboardComponent, //dashboard:email
+  { path: 'dashboard/:id', component: DashboardComponent,
     children: [
       {path: 'fields', component: FieldsListComponent},
       {path: 'sensors', component: SensorsComponent},
+      {path: '', redirectTo: 'fields', pathMatch: 'full'},
     ],
 
 

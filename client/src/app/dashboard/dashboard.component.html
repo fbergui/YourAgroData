@@ -7,7 +7,7 @@
           <a class="nav-link">Welcome</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" >User</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" >{{name}}</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="#">Logout</a>
           </div>
@@ -17,16 +17,16 @@
   </div>
 </nav>
 <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="active">
-	<li ngbNavItem routerLink="/dashboard/fields" [ngbNavItem]="1">
+	<li ngbNavItem [routerLink]="['/dashboard/'+id+'/fields']" [ngbNavItem]="1">
 		<a ngbNavLink class="tabe">Fields</a>
 		<ng-template ngbNavContent>
-			<router-outlet></router-outlet>
+			<app-fields-list [id]="id"></app-fields-list>
 		</ng-template>
 	</li>
-  <li ngbNavItem routerLink="/dashboard/sensors" [ngbNavItem]="2">
+  <li ngbNavItem [routerLink]="['/dashboard/'+id+'/sensors']" [ngbNavItem]="2">
 		<a ngbNavLink class="tabe" >Sensors</a>
 		<ng-template ngbNavContent>
-			<router-outlet></router-outlet>
+			<app-sensors [id]="id"></app-sensors>
 		</ng-template>
 	</li>
   <li ngbNavItem>

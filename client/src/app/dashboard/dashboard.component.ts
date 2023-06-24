@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +8,20 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit{
 
-  constructor(public router: Router) { }
+  constructor(private router: Router,private route: ActivatedRoute) { }
   active:number = 1;
 
+  id:any;
+  name:any;
+
   ngOnInit(){
+    this.id = this.route.snapshot.paramMap.get('id')
+    this.name = this.route.snapshot.paramMap.get('name')
+    console.log(this.id)
+
+
+
+
     if(this.router.url.includes("fields"))
     return this.active = 1;
     else if(this.router.url.includes("sensors"))

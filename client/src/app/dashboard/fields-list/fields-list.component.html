@@ -1,7 +1,7 @@
 <button class="btn btn-success" (click)="addField()">Add Field</button>
 <div class="col mt-3">
 
-  <google-map height="300px" width="auto"
+  <google-map height="400px" width="auto" [options]="{scrollwheel: true}"
   [center]="center" [zoom]="zoom" [mapTypeId]="mapTypeId">
 
    <map-polygon *ngFor="let polygon of polygons; index as i" [paths]="polygons"
@@ -9,7 +9,6 @@
    >
 
    </map-polygon>
-   <map-info-window>ciao</map-info-window>
   </google-map>
   <app-field-item *ngFor="let field of fields" [recipe]="field"></app-field-item>
 </div>

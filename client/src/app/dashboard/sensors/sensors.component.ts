@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SensorsService } from './sensors.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { SensorsService } from './sensors.service';
 })
 export class SensorsComponent {
 
+  @Input() id!:string;
   constructor(private sensorService:SensorsService) { }
   sensors: any;
   active:boolean=false;
@@ -42,7 +43,7 @@ export class SensorsComponent {
 
 
   ngOnInit() {
-    this.sensorService.getSensors("6438f50f969d3d3f112545c6").subscribe((data:any)=>{
+    this.sensorService.getSensors(this.id).subscribe((data:any)=>{
       this.sensors = data;
     })
   }
