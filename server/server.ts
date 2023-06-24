@@ -294,6 +294,65 @@ app.get("/api/:collection/:id", function (req: any, res: any, next: any){
 
 })
 
+app.post("/api/add/:collection/", function (req: any, res: any, next: any){
+  let data = req.body.data;
+  let coll = req.params.collection;
+
+  let collection = req["connessione"].db(DBNAME).collection(coll);
+  let request = collection.insertOne(data)
+  request.then((data:any)=>{
+    res.status(200);
+    res.send(data);
+  }).catch((err: Error) => {
+    res.send("Query error " + err.message);
+    console.log(err.stack);
+    res.status(500);
+  }).finally(() => {
+    req["connessione"].close();
+  });
+
+});
+
+app.post("/api/edit/:collection/:id", function (req: any, res: any, next: any){
+  let id = req.params.id
+  let update = req.body.update;
+  let coll = req.params.collection;
+
+  let collection = req["connessione"].db(DBNAME).collection(coll);
+  let request = collection.updateOne(id,update)
+  request.then((data:any)=>{
+    res.status(200);
+    res.send(data);
+  }).catch((err: Error) => {
+    res.send("Query error " + err.message);
+    console.log(err.stack);
+    res.status(500);
+  }).finally(() => {
+    req["connessione"].close();
+  });
+
+});
+
+app.delete("/api/delete/:collection/:id", function (req: any, res: any, next: any){
+  let id = req.params.id
+  let coll = req.params.collection;
+
+  let collection = req["connessione"].db(DBNAME).collection(coll);
+  let request = collection.deleteOne(id)
+  request.then((data:any)=>{
+    res.status(200);
+    res.send(data);
+  }).catch((err: Error) => {
+    res.send("Query error " + err.message);
+    console.log(err.stack);
+    res.status(500);
+  }).finally(() => {
+    req["connessione"].close();
+  });
+
+});
+
+
 app.post("/api/addDataSensor", function (req: any, res: any, next: any){
   let  atmHumidity= parseFloat(datoSensore.split("|")[0]);
   let atmTemperature = parseFloat(datoSensore.split("|")[1]);
