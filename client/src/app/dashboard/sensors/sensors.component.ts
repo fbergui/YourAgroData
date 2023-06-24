@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SensorsService } from './sensors.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-sensors',
@@ -8,62 +9,72 @@ import { SensorsService } from './sensors.service';
 })
 export class SensorsComponent {
 
-  @Input() id!:string;
-  constructor(private sensorService:SensorsService) { }
+  @Input() id!: string;
+  constructor(private sensorService: SensorsService) { }
   sensors: any;
-  active:boolean=false;
+  active: boolean = false;
   grafico: any;
-  txtRegister:string="Start Register";
-  interval:any;
+  txtRegister: string = "Start Register";
+  interval: any;
+  dataSensor: any[] = [];
+  selectedOption: string = "";
 
-  chartData = [
+
+  chartData: any = [
     {
-      data: [330, 600, 260, 700],
-      label: 'Account A'
+      data: [],
+      label: '',
+      borderWidth: 1,
+      borderColor: '#000'
     },
-    {
-      data: [120, 455, 100, 340],
-      label: 'Account B'
-    },
-    {
-      data: [45, 67, 800, 500],
-      label: 'Account C'
-    }
   ];
 
-  chartLabels = [
-    'January',
-    'February',
-    'March',
-    'April'
-  ];
+  chartLabels: any = [];
   chartOptions = {
     responsive: true
   };
 
 
   ngOnInit() {
-    this.sensorService.getSensors(this.id).subscribe((data:any)=>{
+    this.sensorService.getSensors(this.id).subscribe((data: any) => {
       this.sensors = data;
     })
   }
 
-  register(idSensor:any){
-    if(this.active==false)
-    {
-      this.active=true;
-      this.txtRegister="Stop";
-      this.interval = setInterval(() => {
-        this.sensorService.addDataSensor(idSensor).subscribe((data:any)=>{
-          console.log(data.ris);
-        })
+  register(idSensor: any, valueType: any) {
+    if (this.active == false && (valueType != " " || valueType == null)) {
 
+      this.active = true;
+      this.txtRegister = "Stop";
+      this.interval = setInterval(() => {
+        this.sensorService.addDataSensor(idSensor).subscribe((data: any) => {
+
+        })
+        this.sensorService.getDataSensor(idSensor).subscribe((data: any) => {
+          this.dataSensor = [];
+          this.chartLabels.length = 0;
+          this.chartData.length = 0;
+
+
+          for (let datoSensore of data) {
+            this.chartLabels.push(datoSensore.time.toString())
+            if (datoSensore[valueType] != null)
+              this.dataSensor.push(datoSensore[valueType])
+
+          }
+          this.chartData = [{
+            data: this.dataSensor,
+            label: valueType,
+            borderWidth: 1,
+            borderColor: '#000'
+          }]
+        })
       }, 1000);
     }
-    else{
+    else {
       clearInterval(this.interval);
-      this.active=false;
-      this.txtRegister="Start Register";
+      this.active = false;
+      this.txtRegister = "Start Register";
     }
 
 

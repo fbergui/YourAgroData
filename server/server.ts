@@ -264,8 +264,23 @@ app.get("/api/:collection/:id", function (req: any, res: any, next: any){
   let id = req.params.id;
   let coll = req.params.collection
 
+  let filter, limit, sort;
+
+  if(coll == "sensorData")
+  {
+    filter = {idSensor:id}
+    limit = 50;
+    sort = {time:-1}
+  }
+  else
+  {
+    filter = {idUser:id}
+    limit = 0;
+    sort = {}
+  }
+
   let collection = req["connessione"].db(DBNAME).collection(coll);
-  let request = collection.find({idUser:id}).toArray()
+  let request = collection.find(filter).toArray()
   request.then((data:any)=>{
     res.status(200);
     res.send(data);
@@ -280,8 +295,8 @@ app.get("/api/:collection/:id", function (req: any, res: any, next: any){
 })
 
 app.post("/api/addDataSensor", function (req: any, res: any, next: any){
-  let atmTemperature = parseFloat(datoSensore.split("|")[0]);
-  let atmHumidity = parseFloat(datoSensore.split("|")[1]);
+  let  atmHumidity= parseFloat(datoSensore.split("|")[0]);
+  let atmTemperature = parseFloat(datoSensore.split("|")[1]);
   let soilHumidity = parseInt(datoSensore.split("|")[2]);
   console.log(atmTemperature, atmHumidity, soilHumidity);
   let currentTime = new Date() ;
